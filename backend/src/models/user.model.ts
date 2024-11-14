@@ -9,34 +9,7 @@ import {
     UpdatedAt,
 } from 'sequelize-typescript';
 
-
-enum Mentor {
-    Starter = "starter",
-    Professional = "professional",
-    Expert = "expert"
-}
-
-
-enum UserExplorer {
-    Explorer = "explorer",
-    Buyer = "buyer",
-}
-
-
-type UserRole = Mentor | UserExplorer | "admin";
-
-
-interface UserAttributes {
-    id: string;
-    name: string;
-    last_name: string;
-    identification: string;
-    image: string;
-    city: string;
-    areaId: string;
-    positionId: string;
-    role: UserRole;
-}
+import { Role, UserAttributes } from "../interfaces/user.interface";
 
 interface UserCreationAttributes extends Optional<UserAttributes, "id"> { }
 
@@ -46,11 +19,7 @@ interface UserCreationAttributes extends Optional<UserAttributes, "id"> { }
     modelName: "User"
 })
 
-export default class User extends Model<
-
-    UserAttributes,
-    UserCreationAttributes
-> {
+export default class User extends Model<UserAttributes, UserCreationAttributes> {
     @Column({
         primaryKey: true,
         type: DataType.UUID,
@@ -60,65 +29,64 @@ export default class User extends Model<
 
     @Column({
         type: DataType.STRING,
+        allowNull: false,
     })
-
     declare name: string;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+    })
     declare last_name: string;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+    })
     declare identification: string;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+    })
+    declare email: string;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+    })
+    declare password: string;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: true,
+    })
+    declare image: string;
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+    })
+    declare city: string;
+
+    @Column({
+        type: DataType.ENUM(...Object.values(Role)),
+        allowNull: false,
+        defaultValue: Role.Admin
+    })
+    declare role: Role;
+
+    @Column({
+        type: DataType.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
+    })
+    declare status: boolean;
 
     @CreatedAt
     declare created_at: Date;
 
     @UpdatedAt
     declare updated_at: Date;
-
 }
 
-
-
-// import { db } from "../db/db";
-
-// export const User = db.define('user', {
-//     name: {
-//         allowNull: false,
-//         type: DataTypes.STRING,
-//     },
-//     lastName: {
-//         allowNull: false,
-//         type: DataTypes.STRING,
-//     },
-//     identification: {
-//         allowNull: false,
-//         type: DataTypes.STRING,
-//         unique: true,
-//     },
-//     image: {
-//         allowNull: false,
-//         type: DataTypes.STRING,
-//         defaultValue: "default.png",
-//     },
-
-//     city: {
-//         allowNull: false,
-//         type: DataTypes.STRING,
-//     },
-
-//     areaId: {
-//         type: DataTypes.INTEGER,
-//         allowNull: false,
-//     },
-//     positionId: {
-//         type: DataTypes.INTEGER,
-//         allowNull: false,
-//     },
-//     role: {
-//         allowNull: false,
-//         type: DataTypes.STRING,
-//         defaultValue: "collaborator",
-//     },
-//     status: {
-//         allowNull: false,
-//         type: DataTypes.STRING,
-//         defaultValue: "active",
-//     },
-// });

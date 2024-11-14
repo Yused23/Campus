@@ -12,6 +12,7 @@ router.get("/", (_req, res) => {
 })
 
 router.post("/", (_req, res) => {
+
     res.send({
         message: "Create user!",
         users: []

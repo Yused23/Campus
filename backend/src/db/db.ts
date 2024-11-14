@@ -5,7 +5,8 @@ import config from "./config";
 const db = new Sequelize(
     {
         ...config.getDatabaseConfig(),
-        dialect: "postgres",
+        dialect: "mysql",
+        logging: false,
         models: [__dirname + "/models"],
     }
 );
