@@ -1,5 +1,3 @@
-import { Optional } from "sequelize";
-
 import {
     Table,
     Model,
@@ -9,9 +7,7 @@ import {
     UpdatedAt,
 } from 'sequelize-typescript';
 
-import { Role, UserAttributes } from "../interfaces/user.interface";
-
-interface UserCreationAttributes extends Optional<UserAttributes, "id"> { }
+import { Role, UserAttributes, UserCreationAttributes } from "../interfaces/user.interface";
 
 @Table({
     timestamps: true,
