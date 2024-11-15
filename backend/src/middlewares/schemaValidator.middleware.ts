@@ -11,6 +11,7 @@ export const schemaValition =
                     query: req.query,
                 });
                 next();
+                return;
             } catch (error) {
                 console.log(error);
                 if (error instanceof ZodError) {

@@ -1,6 +1,3 @@
-import { Optional } from "sequelize";
-
-
 import {
     Table,
     Model,
@@ -11,11 +8,7 @@ import {
 } from 'sequelize-typescript';
 
 
-import { AdminAttributes } from "../interfaces/admin.interface";
-
-
-
-interface AdminCreationAttributes extends Optional<AdminAttributes, "id"> { }
+import { AdminAttributes, AdminCreationAttributes } from "../interfaces/admin.interface";
 
 @Table({
     timestamps: true,
